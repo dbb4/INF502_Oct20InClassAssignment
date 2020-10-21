@@ -41,7 +41,7 @@ class TestCalculatorMethods(unittest.TestCase):
 
     def test_subtract_decimals(self):
         difference = abs(Calculator.subtract(3.8, 3.5) - 0.3)
-        self.assertLessEqual(difference, 0.001, "Test failed, subtracting (3.8,3.5) should less than or equal 0.3")
+        self.assertLessEqual(difference, 0.001, "Test failed, subtracting (3.8,3.5) should be within 0.001 of 0.3")
 
     def test_subtract_letters_from_letters(self):
         with self.assertRaises(TypeError, msg="Test failed, TypeError not raised when subtracting (\"def\",\"abc\") is called"):
@@ -122,9 +122,25 @@ class TestCalculatorMethods(unittest.TestCase):
     def test_pow_param1_pos_floating_param2_neg_floating(self):
         self.assertEqual(Calculator.pow(0.00032, -0.2), 5, "Test failed, pow(0.00032, -0.2) should equal 5")
 
-    def test_pow_parameters_both_neg_floating(self):
-        with self.assertRaises(ValueError, msg="Test failed, pow(-0.00032, -0.2) should raise ValueError."):
-            Calculator.pow(-0.00032, -0.2)
+    def test_pow_param1_neg_floating_param2_neg_floating(self):
+        self.assertEqual(Calculator.pow(-0.00032, -0.2), -5, "Test failed, pow(0.00032, -0.2) should equal -5")
 
+    def test_pow_odd_root_of_negative(self):
+        difference = abs(Calculator.pow(-6, 0.1111111111111111) - -1.220284936)
+        self.assertLessEqual(difference, 0.00001, "Test failed, pow(-6, 1/9) should be within 0.00001 of -1.220284936")
+            
+    def test_pow_even_root_of_negative(self):
+        with self.assertRaises(ValueError,msg="Test failed, Calculator.pow(-6, 0.5) should raise ValueError"):
+            Calculator.pow(-6, 0.5)
+
+# Testing the "isEven" function in the Calculator Class
+
+    def test_isEven_with_even_number(self):
+        self.assertTrue(Calculator.isEven(4), "Test failed, function should return true for 4")
+        
+    def test_isEven_with_odd_number(self):
+        self.assertFalse(Calculator.isEven(5), "Test failed, function should return false for 5")
+        
+        
 if __name__ == '__main__':
     unittest.main()
