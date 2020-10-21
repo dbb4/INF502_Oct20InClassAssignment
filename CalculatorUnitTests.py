@@ -123,7 +123,7 @@ class TestCalculatorMethods(unittest.TestCase):
         self.assertEqual(Calculator.pow(0.00032, -0.2), 5, "Test failed, pow(0.00032, -0.2) should equal 5")
 
     def test_pow_parameters_both_neg_floating(self):
-        with self.assertRaises(ValueError, "Test failed, pow(-0.00032, -0.2) should raise ValueError."):
+        with self.assertRaises(ValueError, msg="Test failed, pow(-0.00032, -0.2) should raise ValueError."):
             Calculator.pow(-0.00032, -0.2)
 
 if __name__ == '__main__':
